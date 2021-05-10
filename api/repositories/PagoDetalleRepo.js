@@ -1,12 +1,8 @@
-class PagoDetalleRepo {
-    async findOne (_qry) {
+module.exports = {
+	findOne: async (_qry)=>{
         return PagoDetalle.findOne({ id: _pagoDetalleId })
-    }
-
-    async find (_qry) {
+    },
+    find: async (_qry)=>{
         return PagoDetalle.find({ id: _pagoDetalleId })
     }
 }
-
-
-module.exports = PagoDetalleRepo;

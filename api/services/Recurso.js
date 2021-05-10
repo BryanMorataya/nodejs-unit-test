@@ -1,5 +1,9 @@
-class Recurso {
-    async calculado(_params) {
+
+const ItemPagoCalculadoDetalleRepo = require('../repositories/ItemPagoCalculadoDetalleRepo')
+const PagoDetalleRepo = require('../repositories/PagoDetalleRepo')
+
+module.exports = {
+	calculado: async (_params)=>{
         try {
             let {
                 _pagoDetalleId,
@@ -21,7 +25,7 @@ class Recurso {
                 tasa: 0,
                 detalle: [],
             };
-            let arrCalc = await ItemPagoCalculadoDetalle.find({
+            let arrCalc = await ItemPagoCalculadoDetalleRepo.find({
                 itempagomaestro: itempago,
                 deletedAt: null,
             });
@@ -41,7 +45,7 @@ class Recurso {
                         let recursoObj = _pagoDetalle.find(
                             (el) => el.itempago == val.itempagorecurso
                         );
-                        console.log(recursoObj);
+                        
                         if (!recursoObj) {
                             return carry;
                         }
@@ -56,13 +60,11 @@ class Recurso {
                         
                         return carry + monto;
                     }, 0);
-                    result.tasa = _newTasa;
+                    result.tasa = parseFloat(parseFloat(_newTasa).toFixed(2));
                 }
 
                 return { ..._el, tasa: _newTasa };
             });
-
-            result.detalle = _newDetail;
 
             return {
                 data: result,
@@ -80,4 +82,3 @@ class Recurso {
         }
     }
 }
-module.exports = Recurso;

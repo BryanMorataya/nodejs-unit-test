@@ -1,10 +1,5 @@
-class ItemPagoCalculadoDetalleRepo {
-
-    async find (_qry) {
+module.exports = {
+    find: async (_qry)=>{
         return ItemPagoCalculadoDetalle.find({ id: _pagoDetalleId })
     }
-
 }
-
-
-module.exports = ItemPagoCalculadoDetalleRepo;
