@@ -4,8 +4,8 @@ const recurso = require('../api/services/Recurso');
 const PagoDetalleRepo = require('../api/repositories/PagoDetalleRepo');
 const ItemPagoCalculadoDetalleRepo = require('../api/repositories/ItemPagoCalculadoDetalleRepo');
 
-describe('test 346', async () => {
-    before(() => {
+describe('two items pago', () => {
+    it('second test two items', async () => {
         const dataOne = {
             "id": 70962,
             "createdAt": "2021-05-10T14:54:04+00:00",
@@ -173,21 +173,28 @@ describe('test 346', async () => {
                 "fraccion_denominador": null,
                 "itempagomaestro": 346,
                 "itempagorecurso": 349
+            },
+            {
+                "id": 278,
+                "deletedAt": null,
+                "porcentaje": 4.83,
+                "editable": false,
+                "es_fraccion": false,
+                "fraccion_numerador": null,
+                "fraccion_denominador": null,
+                "itempagomaestro": 346,
+                "itempagorecurso": 340
             }
         ]
 
         sinon.stub(ItemPagoCalculadoDetalleRepo, 'find').callsFake(() => dataPago);
-    })
-
-    it('test 346 with mock', async () => {
-
         const sendData = {
             _pagoDetalleId: 1,
             itempago: 346
         }
         const resp = await recurso.calculado(sendData);
-        asset(resp.data.tasa == 217.35);
-    });
+        asset(resp.data.tasa == 229.43);
+    })
 
     after(() => {
         sinon.restore();
